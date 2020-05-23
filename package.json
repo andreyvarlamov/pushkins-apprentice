@@ -1,0 +1,39 @@
+{
+  "name": "pushkins-apprentice",
+  "version": "1.0.0",
+  "description": "Poetry Writing Assistant",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "server": "nodemon server.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andreyvarlamov/pushkins-apprentice.git"
+  },
+  "keywords": [
+    "poetry",
+    "writing",
+    "assistant",
+    "rhyme",
+    "dictionary",
+    "thesaurus",
+    "editor",
+    "text"
+  ],
+  "author": "Andrey Varlamov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/andreyvarlamov/pushkins-apprentice/issues"
+  },
+  "homepage": "https://github.com/andreyvarlamov/pushkins-apprentice#readme",
+  "dependencies": {
+    "concurrently": "^5.2.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.9.15"
+  }
+}
