@@ -5,7 +5,7 @@ export default makeStyles(theme => ({
     marginRight: theme.spacing(2),
   },
   navbar: {
-    marginBottom: theme.spacing(2),
+    marginBottom: theme.spacing(10),
   },
   title: {
     flexGrow: "1",

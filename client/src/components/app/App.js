@@ -8,6 +8,8 @@ import { CssBaseline, ThemeProvider } from "@material-ui/core";
 import { pushkin } from "../../theme.js";
 import PushkinApp from "./PushkinApp";
 
+import "./App.css";
+
 function App() {
   return (
     <Provider store={store}>
