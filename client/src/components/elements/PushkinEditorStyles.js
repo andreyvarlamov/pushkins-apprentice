@@ -10,6 +10,8 @@ export default makeStyles(theme => ({
     left: "0",
     right: "0",
     paddingBottom: theme.spacing(10),
+    paddingLeft: theme.spacing(10),
+    paddingRight: theme.spacing(10),
   },
   editorContainerWrapper: {
     flexGrow: "1",
@@ -35,7 +37,18 @@ export default makeStyles(theme => ({
     borderRadius: "5px",
     borderStyle: "solid",
     borderWidth: "1px",
+    display: "flex",
     flex: "1 1 0px",
+    flexDirection: "column",
+    flexWrap: "wrap",
     padding: theme.spacing(2),
+    overflow: "auto",
+  },
+  wordP: {
+    marginRight: theme.spacing(2),
+    "&:hover": {
+      cursor: "pointer",
+      textDecoration: "underline",
+    },
   },
 }));
