@@ -14,21 +14,14 @@ const WordPopover = props => {
 
   const { word, isOpen, anchor, handleClose } = props;
 
-  const { getWordInfo, wordInfo } = props;
-
-  const [loading, setLoading] = useState(true);
-  const [currentDefintion, setCurrentDefinition] = useState("");
+  const {
+    getWordInfo,
+    wordInfo: { loading, currentDefinition },
+  } = props;
 
   useEffect(() => {
     if (isOpen) getWordInfo(word);
   }, [isOpen]);
-
-  useEffect(() => {
-    if (wordInfo) {
-      setLoading(wordInfo.loading);
-      setCurrentDefinition(wordInfo.currentDefintion);
-    }
-  }, [wordInfo]);
 
   return (
     <React.Fragment>
@@ -51,7 +44,7 @@ const WordPopover = props => {
           <CircularProgress className={classes.circularProgress} size={30} />
         ) : (
           <Typography className={classes.popoverText}>
-            {currentDefintion + " ha"}
+            {currentDefinition}
           </Typography>
         )}
       </Popover>

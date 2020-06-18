@@ -26,6 +26,8 @@ function PushkinEditor() {
   const [popoverAnchor, setPopoverAnchor] = useState(null);
   const [popoverOpen, setPopoverOpen] = useState(false);
   const [currentWord, setCurrentWord] = useState("");
+  const [highlightedText, setHighlightedText] = useState(null);
+  const [showHighlight, setShowHighlight] = useState(false);
 
   useEffect(() => {
     wordsDispatch({ type: "UPDATE_WORDS", payload: inputText });
@@ -35,6 +37,33 @@ function PushkinEditor() {
     setCurrentWord(word);
     setPopoverAnchor(e.currentTarget);
     setPopoverOpen(true);
+  };
+
+  const setHighlightedWord = word => {
+    const splitWords = inputText.split(word);
+    setHighlightedText(
+      <div className={classes.highlightedTextDiv}>
+        {splitWords.map((section, index) => (
+          <React.Fragment key={index}>
+            <span>{section}</span>
+            {index !== splitWords.length - 1 ? (
+              <span style={{ backgroundColor: "#AAAA00" }}>{word}</span>
+            ) : null}
+          </React.Fragment>
+        ))}
+      </div>
+    );
+    setShowHighlight(true);
+  };
+
+  const handleWordMouseOver = e => {
+    const word = e.target.textContent;
+    setHighlightedWord(word);
+  };
+
+  const handleWordMouseOut = e => {
+    setShowHighlight(false);
+    setHighlightedText("");
   };
 
   const handleClose = e => {
@@ -47,17 +76,21 @@ function PushkinEditor() {
     <div className={classes.editorContainerWrapper}>
       <Container maxWidth="lg" className={classes.editorContainer}>
         <div className={classes.editorTextFieldWrapper}>
-          <Input
-            multiline
-            rows={30}
-            placeholder={"Start writing..."}
-            fullWidth
-            disableUnderline
-            className={classes.textInput}
-            classes={{ input: classes.textInputField }}
-            onChange={e => setInputText(e.target.value)}
-            value={inputText}
-          />
+          {showHighlight ? (
+            highlightedText
+          ) : (
+            <Input
+              multiline
+              rows={30}
+              placeholder={"Start writing..."}
+              fullWidth
+              disableUnderline
+              className={classes.textInput}
+              classes={{ input: classes.textInputField }}
+              onChange={e => setInputText(e.target.value)}
+              value={inputText}
+            />
+          )}
         </div>
         <div className={classes._placeholderDiv}>
           <WordPopover
@@ -72,6 +105,8 @@ function PushkinEditor() {
               variant="body2"
               onClick={e => handleWordClick(e, word)}
               className={classes.wordP}
+              onMouseOver={handleWordMouseOver}
+              onMouseOut={handleWordMouseOut}
             >
               {word}
             </Typography>
