@@ -33,6 +33,7 @@ export default makeStyles(theme => ({
     overflow: "auto",
     flex: "1 1 0px",
     marginRight: theme.spacing(2),
+    lineHeight: "normal",
   },
   textInput: {
     borderColor: "#A0A0A0",

@@ -40,17 +40,43 @@ function PushkinEditor() {
   };
 
   const setHighlightedWord = word => {
-    const splitWords = inputText.split(word);
+    const splitLines = inputText.split(/\n/);
+
+    let lastInLine = [];
+    splitLines.forEach(element => {
+      lastInLine.push(element.split(/ |,|\.|,|\?|!|&|x\d/).length);
+    });
+
+    const splitWords = inputText.split(/\n| |,|\.|,|\?|!|&|x\d/);
     setHighlightedText(
       <div className={classes.highlightedTextDiv}>
-        {splitWords.map((section, index) => (
-          <React.Fragment key={index}>
+        {splitWords.map((currentWord, index) => {
+          if (currentWord !== word)
+            return (
+              <span key={index}>
+                {currentWord + (lastInLine.includes(index + 1) ? "\n" : " ")}
+              </span>
+            );
+          else
+            return (
+              <React.Fragment key={index}>
+                <span style={{ backgroundColor: "#AAFF00" }}>
+                  {currentWord}
+                </span>
+                <span>{lastInLine.includes(index + 1) ? "\n" : " "}</span>
+              </React.Fragment>
+            );
+
+          /* <React.Fragment key={index}>
             <span>{section}</span>
             {index !== splitWords.length - 1 ? (
-              <span style={{ backgroundColor: "#AAAA00" }}>{word}</span>
+              <React.Fragment>
+                <span style={{ backgroundColor: "#AAAA00" }}>{word}</span>
+                <span> </span>
+              </React.Fragment>
             ) : null}
-          </React.Fragment>
-        ))}
+          </React.Fragment> */
+        })}
       </div>
     );
     setShowHighlight(true);
